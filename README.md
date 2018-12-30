@@ -32,6 +32,8 @@ Note: every argument that's prefixed with a `?` is optional
 
 ## Commands (Admins):
 
+Note: every argument that's prefixed with a `?` is optional
+
 - `^rm [Number]`: Removes the last n messages of the channel
 - `^say [?Channel, Message]`: Sends a message as sBot either in the same channel if none is provided or found or in the specified channel if the first argument is in the normal tag (#channelname) format
 - `^configure`: (Coming Soon) Starts a chain of prompts to change the bot preferences for your specific server
