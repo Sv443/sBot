@@ -1,7 +1,7 @@
 # sBot by [Sv443](https://sv443.net/)<br>[![](https://img.shields.io/github/license/Sv443/CloudflareDUC.svg?style=flat-square)](https://github.com/Sv443/CloudflareDUC/blob/master/LICENSE) [![](https://img.shields.io/github/issues/Sv443/CloudflareDUC.svg?style=flat-square)](https://github.com/Sv443/CloudflareDUC/issues) [![](https://img.shields.io/github/stars/Sv443/CloudflareDUC.svg?style=flat-square)](https://github.com/Sv443/CloudflareDUC/)
 ### A fun and useful Discord Bot that was designed as a bot that has many different features from as many categories as possible to give every user something they can enjoy.
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br>
 
 ## Invitation:
 Please visit [this page](https://sv443.net/r/sBot) to either add the bot to your server or to join the support server.
