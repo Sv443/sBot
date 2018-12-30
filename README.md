@@ -4,7 +4,7 @@
 <br><br><br>
 
 ---
-[Invitation](#invitation) - [Usage](#usage) - [Commands](#commands%20(every%20user)) - [Admin Commands](#commands%20(admins))
+[Invitation](#invitation) - [Usage](#usage) - [Commands](#commands) - [Admin Commands](#commands)
 
 ---
 
