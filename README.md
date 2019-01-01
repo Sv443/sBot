@@ -19,7 +19,7 @@ Please visit [this page](https://sv443.net/r/sBot) to either add the bot to your
 To view all available commands, type `^help` into any channel<br>
 If you wanna see the admin commands, use `^adminhelp` instead.<br><br><br>
 
-If you cloned the repo and want to start the bot you need NodeJS installed, need to open CMD and `cd` to the project folder. Then, type `node .` to start the bot.
+If you cloned the repo and want to start the bot you need NodeJS installed and you have to create a file called `.env` that contains a single line: `BOT_TOKEN=your_bot_token`. Afterwards you need to open CMD and `cd` to the project folder. Then, type `node .` to start the bot.
 
 <br><br><br><br><br><br>
 
