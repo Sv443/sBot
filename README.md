@@ -31,11 +31,11 @@ Note: every argument that's prefixed with a `?` is optional
 - `^feature [Your Feature(s)]`: Sends a feature request to the dev
 - `^coinflip [?Number of Flips]`: Flips one (if the arguments are left empty) or multiple coins
 - `^dice [Number of Eyes]`: Rolls a dice with the specified number of eyes (also has a cool little animation, yay)
-- `^joke`: Tells a random joke (I am currently in the process of switching APIs since the one I'm using currently is really bad, so please excuse the bad formatting and bad jokes)
+- `^joke`: Tells a random joke
 - `^ping [?URL]`: Responds with pong if the arguments are left empty or pings the specified website (doesn't work currently)
 - `^pokemon [Name]`: Gets some info about the specified Pokémon
 - `^server`: Responds with some info about the server
-- `^steam [User]`: (Work in Progress) Returns some info about the specified Steam user
+- `^steam [User]`: Returns some info about the specified Steam user
 
 <br><br><br><br>
 
