@@ -1,6 +1,6 @@
 {
-  "name": "dcbot",
-  "version": "0.1.0",
+  "name": "sbot",
+  "version": "0.2.0",
   "description": "",
   "main": "bot.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "discord-rpc": "^3.0.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
-    "svjsl": "^1.6.4",
+    "svjsl": "^1.6.5",
     "xmlhttprequest": "^1.8.0"
   }
 }

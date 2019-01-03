@@ -28,7 +28,20 @@ module.exports = {
         },
         coinflip: {
             max: 25
+        },
+        joke: {
+            icon: "https://sv443.net/cdn/jokeapi/icon_small.png"
+        },
+        ping: {
+            timeout: 6000
         }
     },
-    loadingURL: "https://sv443.net/cdn/sBot/loading2.gif"
+    loadingURL: "https://sv443.net/cdn/sBot/loading2.gif",
+    serverSpecifics: {
+        supportServer: {
+            httpPort: 8078,
+            logFile: "./data/latestGithubRequest.log",
+            githubIcon: "https://sv443.net/resources/images/github.png"
+        }
+    }
 };

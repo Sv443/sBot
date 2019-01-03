@@ -11,6 +11,13 @@ const joinProcedure = require("./joinProcedure.js");
 console.log("\n\x1b[32m\x1b[1mInitializing " + settings.bot_name + " v" + settings.version + "...\x1b[0m\n\n\n");
 
 
+const serverSpecifics = [
+    require("./serverSpecifics/supportServer.js")
+]
+
+
+
+
 process.stdout.write("Loading commands: ");
 
 var availableCommands = [];
@@ -29,6 +36,11 @@ console.log("\nPermissions: \x1b[34m\x1b[1mNormal User \x1b[31mDeveloper \x1b[33
 
 
 client.on("ready", () => {
+    serverSpecifics.forEach(sp => {
+        sp(client);
+    });
+
+
     client.user.setAvatar(settings.avatar_url).catch(err => {});
     console.log("\n\x1b[32m\x1b[1mInitialization complete, waiting for commands in \x1b[33m" + client.channels.size + "\x1b[32m channels on \x1b[33m" + client.guilds.size + "\x1b[32m servers for a total of \x1b[33m" + client.users.size + "\x1b[32m users.\x1b[0m\n");
     setRedeployedStatus();
@@ -36,7 +48,7 @@ client.on("ready", () => {
 
     client.on("message", message => {
         let msgc = message.content;
-        //if(message.author.bot) return;
+        if(message.author.bot) return;
         try {
             if(msgc.substring(0, msgc.length - (msgc.length - 1)) == settings.command_prefix) {
                 let command = "";
@@ -52,7 +64,12 @@ client.on("ready", () => {
                 if(availableCommands.includes(command)) {
                     try {
                         process.stdout.write(".");
-                        require(`./commands/${command}.js`).run(client, message, args);
+                        try {
+                            require(`./commands/${command}.js`).run(client, message, args);
+                        }
+                        catch(err) {
+                            console.log("\x1b[31m\x1b[1mError while running command \"" + command + "\": " + err + "\x1b[0m");
+                        }
                     }
                     catch(err) {
                         console.log("\x1b[31m\x1b[1mERROR IN COMMAND HANDLER " + err + "\x1b[0m");
@@ -78,7 +95,7 @@ client.on("ready", () => {
 client.login(process.env.BOT_TOKEN);
 
 function setRedeployedStatus() {
-    client.user.setActivity(`I just redeployed!`, { type: 'PLAYING' });
+    client.user.setActivity(`I just restarted!`, { type: 'PLAYING' });
     setTimeout(()=>{
         setDefaultActivity();
     }, settings.redeployed_status_timeout);
