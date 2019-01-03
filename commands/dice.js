@@ -12,26 +12,26 @@ module.exports.run = (client, message, args) => {
 
         message.reply("Rolling a D" + args + " dice...");
 
-        var dcm = message.channel.send(jsl.randRange(1, args)).then(dcm => {
+        var dcm = message.channel.send("[ " + jsl.randRange(1, args) + " ]").then(dcm => {
             setTimeout(()=>{
-                dcm.edit(jsl.randRange(1, args)).then(dcm => {
+                dcm.edit("[ " + jsl.randRange(1, args) + " ]").then(dcm => {
                     setTimeout(()=>{
-                        dcm.edit(jsl.randRange(1, args)).then(dcm => {
+                        dcm.edit("[ " + jsl.randRange(1, args) + " ]").then(dcm => {
                             setTimeout(()=>{
-                                dcm.edit(jsl.randRange(1, args)).then(dcm => {
+                                dcm.edit("[ " + jsl.randRange(1, args) + " ]").then(dcm => {
                                     setTimeout(()=>{
-                                        dcm.edit(jsl.randRange(1, args)).then(dcm => {
+                                        dcm.edit("[ " + jsl.randRange(1, args) + " ]").then(dcm => {
                                             setTimeout(()=>{
                                                 dcm.edit("It landed on a " + finalnbr);
-                                            }, 1000);
+                                            }, 800);
                                         });
-                                    }, jsl.randRange(600, 800));
+                                    }, jsl.randRange(400, 600));
                                 });
-                            }, jsl.randRange(400, 600));
+                            }, jsl.randRange(150, 250));
                         });
-                    }, jsl.randRange(200, 400));
+                    }, jsl.randRange(100, 150));
                 });
-            }, jsl.randRange(100, 200));
+            }, jsl.randRange(50, 100));
         });
     }
     catch(err) {

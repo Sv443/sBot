@@ -18,13 +18,14 @@ module.exports.run = (client, message, args) => {
 
     if(message.member.permissions.has("KICK_MEMBERS")) {
         if(jsl.isEmpty(sayInChannel)) {
-            message.channel.send(args).then(m=>{
-                message.delete();
+            message.delete().then(m=>{
+                message.channel.send(args);
             });
         }
         else {
             try {
                 message.guild.channels.get(sayInChannel).send(sendMsg);
+                message.react("✅");
             }
             catch(err) {
                 message.channel.send(args);

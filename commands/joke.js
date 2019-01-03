@@ -3,8 +3,8 @@ const settings = require("../settings.js");
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const Discord = require("discord.js");
 
-//const reqURL = "https://official-joke-api.herokuapp.com/random_joke";
-const reqURL = "https://crackmeup-api.herokuapp.com/random";
+const reqURL = "https://sv443.net/jokeapi";
+
 
 module.exports.help = "Tells you a random joke";
 module.exports.run = (client, message, args) => {
@@ -15,23 +15,38 @@ module.exports.run = (client, message, args) => {
 		var jmsg = message.channel.send(loadingembed).then(smsg => {
 			var xhr = new XMLHttpRequest();
 			xhr.open("GET", reqURL, true);
-			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.setRequestHeader("joke_category", "Programming");
+			xhr.setRequestHeader("Content-type", "application/json; utf-8");
 			xhr.onreadystatechange = () => {
 				if(xhr.readyState == 4 && xhr.status == 200) {
-					/*let setup = JSON.parse(xhr.responseText).setup;
-					let punchline = JSON.parse(xhr.responseText).punchline;
+					let joketype = JSON.parse(xhr.responseText).type;
+					var joke = "";
 
-					message.channel.send(setup);
-					setTimeout(()=>{
-						message.channel.send(punchline);
-					}, settings.joke_punchline_timeout);*/
-					let jokedesc = JSON.parse(xhr.responseText).joke.replace(/(\*)/gm, "\\*").replace(/(\`)/gm, "\\`").replace(/(\~)/gm, "\\~").replace(/(A:)/gm, "\n").replace(/(Q:)/gm, "");
-					let embed = new Discord.RichEmbed()
-						.setDescription(jokedesc)
-						.setFooter("Powered by Crackmeup-API (jokes can be malformatted, I can't do anything about that) - " + settings.embed.footer)
-						.addBlankField()
-						.setColor(settings.embed.color);
-					return smsg.edit(embed);
+					if(joketype == "single") {
+						let embed = new Discord.RichEmbed()
+							.setDescription(JSON.parse(xhr.responseText).joke)
+							.setFooter("Category: " + JSON.parse(xhr.responseText).category + " - Powered by JokeAPI (https://sv443.net/jokeapi)", settings.command_settings.joke.icon)
+							.addBlankField()
+							.setColor(settings.embed.color);
+						return smsg.edit(embed);
+					}
+					else if(joketype == "twopart") {
+						let embed = new Discord.RichEmbed()
+							.setDescription(JSON.parse(xhr.responseText).setup + "\n\n(...)")
+							.setFooter("Category: " + JSON.parse(xhr.responseText).category + " - Powered by JokeAPI (https://sv443.net/jokeapi)", settings.command_settings.joke.icon)
+							.addBlankField()
+							.setColor(settings.embed.color);
+						smsg.edit(embed).then(m => {
+							setTimeout(()=>{
+								let nembed = new Discord.RichEmbed()
+									.setDescription(JSON.parse(xhr.responseText).setup + "\n\n" + JSON.parse(xhr.responseText).delivery)
+									.setFooter("Category: " + JSON.parse(xhr.responseText).category + " - Powered by JokeAPI (https://sv443.net/jokeapi)", settings.command_settings.joke.icon)
+									.addBlankField()
+									.setColor(settings.embed.color);
+								return m.edit(nembed);
+							}, 4000);
+						});
+					}
 				}
 				else if(xhr.readyState == 4 && xhr.status >= 400) {
 					let nrembed = new Discord.RichEmbed()
