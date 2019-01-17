@@ -16,8 +16,9 @@ const countrycodeURL = "https://restcountries.eu/rest/v2/alpha/";
 var ccx = true;
 
 
-module.exports.help = "Responds with some info on the specified user";
-module.exports.args = ["user"];
+module.exports.help = "Responds with some info on the specified user's steam account";
+module.exports.category = "Fun";
+module.exports.args = ["Username"];
 module.exports.run = (client, message, args) => { // https://developer.valvesoftware.com/wiki/Steam_Web_API
     if(jsl.isEmpty(args)) return message.reply("please enter a Steam username. Example: `" + settings.command_prefix + "steam Sv443`");
 
@@ -126,7 +127,7 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
     });
 
     function respError(err, status) {
-        let nembed = new Discord.RichEmbed().setDescription("couldn't reach the Steam API! (Status " + status + ")\nGot error: " + err).setColor(settings.embed.color);
+        let nembed = new Discord.RichEmbed().setDescription("📡 Couldn't reach the Steam API! (Status " + status + ")\nGot error: " + err).setColor(settings.embed.color);
         return loadingembed.edit(nembed);
     }
 

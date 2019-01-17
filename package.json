@@ -2,7 +2,7 @@
   "name": "sbot",
   "version": "0.2.0",
   "description": "",
-  "main": "bot.js",
+  "main": "wrapper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,7 +12,8 @@
     "discord-rpc": "^3.0.1",
     "discord.js": "^11.4.2",
     "dotenv": "^6.2.0",
-    "svjsl": "^1.6.5",
+    "node-wrap": "^0.1.2",
+    "svjsl": "^1.6.6",
     "xmlhttprequest": "^1.8.0"
   }
 }

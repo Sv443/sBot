@@ -3,6 +3,7 @@ const settings = require("../settings.js");
 
 
 module.exports.help = "Rolls a dice with the specified number of eyes";
+module.exports.category = "Fun";
 module.exports.args = ["Number of eyes"];
 module.exports.run = (client, message, args) => {
     try {

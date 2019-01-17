@@ -4,6 +4,7 @@ const settings = require("../settings.js");
 
 
 module.exports.help = "Sends a bug report to the developer";
+module.exports.category = "Bot Specific";
 module.exports.args = ["Bug(s)"];
 module.exports.run = (client, message, args) => {
     args = args.toLowerCase();

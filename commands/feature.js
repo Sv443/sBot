@@ -4,6 +4,7 @@ const jsl = require("svjsl");
 
 
 module.exports.help = "Sends a feature request to the developer";
+module.exports.category = "Bot Specific";
 module.exports.args = ["Feature(s)"];
 module.exports.run = (client, message, args) => {
     args = args.toLowerCase();

@@ -2,8 +2,8 @@ const settings = require("../settings.js");
 const jsl = require("svjsl");
 
 module.exports.isAdminCommand = true;
-module.exports.help = "sends a message as " + settings.bot_name;
-module.exports.args = ["Message"];
+module.exports.help = "Sends a message as " + settings.bot_name + " (in a different channel if one is specified, else in the same one)";
+module.exports.args = ["?Channel", "Message"];
 module.exports.run = (client, message, args) => {
     var sayInChannel, sendMsg;
 
@@ -16,7 +16,7 @@ module.exports.run = (client, message, args) => {
         sendMsg = sendMsg.join(" ");
     }
 
-    if(message.member.permissions.has("KICK_MEMBERS")) {
+    if(message.member.permissions.has("MANAGE_MESSAGES")) {
         if(jsl.isEmpty(sayInChannel)) {
             message.delete().then(m=>{
                 message.channel.send(args);
@@ -26,13 +26,12 @@ module.exports.run = (client, message, args) => {
             try {
                 message.guild.channels.get(sayInChannel).send(sendMsg);
                 message.react("✅");
+                message.delete(5000);
             }
             catch(err) {
                 message.channel.send(args);
             }
         }
     }
-    else {
-        message.reply("you don't have enough permissions to do that!");
-    }
+    else return message.reply("you don't have enough permissions to do that!");
 }

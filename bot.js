@@ -3,6 +3,7 @@ const fs = require("fs");
 const jsl = require("svjsl");
 const settings = require("./settings.js");
 const fatalError = require("./errorHandler.js");
+const botFarmProcedure = require("./botFarmProcedure.js");
 require('dotenv').config();
 
 const client = new Discord.Client();
@@ -20,7 +21,7 @@ const serverSpecifics = [
 
 process.stdout.write("Loading commands: ");
 
-var availableCommands = [];
+var availableCommands = [], totalCmds = 0;
 fs.readdirSync("./commands/").forEach(file => { // get all available commands
     availableCommands.push(file.replace(".js", ""));
 
@@ -30,13 +31,16 @@ fs.readdirSync("./commands/").forEach(file => { // get all available commands
     if(!isAdminCommand && !isDevCommand) process.stdout.write(`\x1b[34m\x1b[1m${file.replace(".js", "")}\x1b[0m `);
     else if(!isAdminCommand && isDevCommand) process.stdout.write(`\x1b[31m\x1b[1m${file.replace(".js", "")}\x1b[0m `);
     else process.stdout.write(`\x1b[33m\x1b[1m${file.replace(".js", "")}\x1b[0m `);
+
+    totalCmds++;
 });
 process.stdout.write("\n");
-console.log("\nPermissions: \x1b[34m\x1b[1mNormal User \x1b[31mDeveloper \x1b[33mAdmin\n");
+console.log("Total: \x1b[33m\x1b[1m" + totalCmds + "\x1b[0m");
+console.log("Permissions: \x1b[34m\x1b[1mNormal User \x1b[31mDeveloper \x1b[33mAdmin\n\x1b[0m");
 
 
 client.on("ready", () => {
-    serverSpecifics.forEach(sp => {
+    serverSpecifics.forEach(sp => { // run server specifics
         sp(client);
     });
 
@@ -44,16 +48,15 @@ client.on("ready", () => {
     client.user.setAvatar(settings.avatar_url).catch(err => {});
     console.log("\n\x1b[32m\x1b[1mInitialization complete, waiting for commands in \x1b[33m" + client.channels.size + "\x1b[32m channels on \x1b[33m" + client.guilds.size + "\x1b[32m servers for a total of \x1b[33m" + client.users.size + "\x1b[32m users.\x1b[0m\n");
     setRedeployedStatus();
-    setInterval(setDefaultActivity, 60 * 60 * 60 * 1000);
 
     client.on("message", message => {
         let msgc = message.content;
         if(message.author.bot) return;
         try {
-            if(msgc.substring(0, msgc.length - (msgc.length - 1)) == settings.command_prefix) {
+            if(msgc.substring(0, msgc.length - (msgc.length - settings.command_prefix.length)) == settings.command_prefix) {
                 let command = "";
-                try {command = msgc.split(" ")[0].substring(1);}
-                catch(err) {command = msgc.substring(1);}
+                try {command = msgc.split(" ")[0].substring(settings.command_prefix.length);}
+                catch(err) {command = msgc.substring(settings.command_prefix.length);}
                 if(jsl.isEmpty(command)) return;
                 command = command.toLowerCase();
                 msgc = msgc.split(" ");
@@ -61,10 +64,11 @@ client.on("ready", () => {
                 let args = msgc.join(" ");
 
 
-                if(availableCommands.includes(command)) {
+                if(availableCommands.includes(command)) { // if command is recognized
                     try {
                         process.stdout.write(".");
                         try {
+                            // valid command
                             require(`./commands/${command}.js`).run(client, message, args);
                         }
                         catch(err) {
@@ -88,16 +92,24 @@ client.on("ready", () => {
     });
 
     client.on("guildCreate", guild => {
+        let oMb = guild.members.size;
+        let membersNoBots = guild.members.filter(member => !member.user.bot).size;
+        let botMembers = oMb - membersNoBots;
+
+        if(botMembers > membersNoBots) botFarmProcedure(client, guild);
+
+        // run join procedure on guild join to initially configure the bot
         joinProcedure(client, guild);
     });
 });
 
-client.login(process.env.BOT_TOKEN);
-
 function setRedeployedStatus() {
     client.user.setActivity(`I just restarted!`, { type: 'PLAYING' });
+    client.user.setStatus("idle");
     setTimeout(()=>{
         setDefaultActivity();
+        client.user.setStatus("online")
+        setInterval(()=>{setDefaultActivity();}, 20000);
     }, settings.redeployed_status_timeout);
 }
 
@@ -105,14 +117,18 @@ function setDefaultActivity() {
     client.user.setActivity(settings.default_activity.message.replace("%GUILDS_SIZE%", client.guilds.size).replace("%COMMAND_PREFIX%", settings.command_prefix), { type: settings.default_activity.type });
 }
 
-process.on("SIGINT", softSD);
-process.on("SIGTERM", softSD);
-process.on("SIGKILL", softSD);
-
-function softSD() {
+jsl.softShutdown(()=>{
     client.user.setStatus("dnd").then(r => {
         client.user.setActivity(`rebooting...`, { type: 'PLAYING' }).then(r => {
-            process.exit(0);
+            setTimeout(()=>{
+                process.exit(0);
+            }, 1000);
         });
     });
-}
+});
+
+
+
+
+
+client.login(process.env.BOT_TOKEN);

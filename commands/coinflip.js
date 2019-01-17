@@ -3,6 +3,7 @@ const settings = require("../settings.js");
 
 
 module.exports.help = "Flips a coin";
+module.exports.category = "Fun";
 module.exports.args = ["Number of Flips"];
 module.exports.run = (client, message, args) => {
     try {

@@ -14,7 +14,13 @@ module.exports.run = (client, message, args) => {
 
     if(args < settings.command_settings.rm.min || args > settings.command_settings.rm.max) return message.reply("please enter a number between " + settings.command_settings.rm.min + " and " + settings.command_settings.rm.max);
 
-    message.channel.bulkDelete(args + 1).catch(err => {
+    message.react("✅").then(m => {
+        message.channel.bulkDelete(args + 1).then(s => {
+            if(message.guild.id == "430932202621108275") message.guild.channels.get("489605729624522762").send("**" + message.author.tag + "** just bulk deleted " + args + (args == 1 ? " message in " : " messages in ") + message.guild.channels.get(message.channel.id).toString() + "");
+        }).catch(err => {
+            message.reply("couldn't delete " + args + " messages.\nGot Error: " + err);
+        });
+    }).catch(err => {
         message.reply("couldn't delete " + args + " messages.\nGot Error: " + err);
     });
 }

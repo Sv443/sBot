@@ -1,2 +1,8 @@
-0.1.0%%SPLITTER%%
-- Nothing (yet) :)
+0.3.0%%SPLITTER%%
+- added `^space` command to view space pictures
+- improved `^help` command through categorization
+- fixed `^changelog` command (now actually works yay)
+- improved `^pokemon` command with more data and imperial units (eww)
+- added `^mock` command so you can treat people like garbage even better
+- more quality assurance, stop complaining (jk please complain I need feedback)
+- fixed `^uptime` command
