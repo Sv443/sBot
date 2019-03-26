@@ -67,7 +67,7 @@ const generateQueryURL = (phrase, service = 'ddg') => {
  * param: {Array.Prototype} args arguments passed with the command
  * param: {String} commandName name of command
  */
-const runUserCommand = (message, args, commandName = '') => {
+const runUserCommand = (message, args, commandName) => {
   const availableCommands = {
     '--help': showHelp,
     wiki: wikipediaOpenSearch,
@@ -89,7 +89,7 @@ const runUserCommand = (message, args, commandName = '') => {
  */
 const ddgInstantAnswer = async (message, args) => {
   // join args to create a search phrase
-  const searchPhrase = args;
+  const searchPhrase = args.join(' ');
   let data;
   try {
     data = await request({
@@ -138,8 +138,9 @@ const ddgInstantAnswer = async (message, args) => {
  *      •• WIKIPEDIA OPEN SEARCH ••
  */
 const wikipediaOpenSearch = async (message, args) => {
+  args.shift();
   // join args after 'wiki' to create a search phrase
-  const searchPhrase = args.slice(1, args.length).join(' ');
+  const searchPhrase = args.join(' ');
   let data;
   try {
     data = await request({
@@ -233,6 +234,5 @@ module.exports.args = ['?wiki', 'search-string'];
 exports.run = (client, message, args) => {
   if (args.length === 0)
     return sendMessage(message, 'Use `!define --help` to get command guide.');
-  let commandName = args.split(' ')[0];
-  runUserCommand(message, args, commandName);
+  runUserCommand(message, args.split(' '), args.split(' ')[0]);
 };
