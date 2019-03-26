@@ -2,7 +2,20 @@
  * author: ap4gh(Github)
  * license: MIT https://opensource.org/licenses/MIT
  */
-const maintainerID = '274434863711518722';
+
+module.exports.help = "Search DDG/Wikipedia for a word's definition";
+module.exports.category = 'Knowledge';
+module.exports.args = ['?wiki', 'Search String'];
+
+// run function for !define command:
+exports.run = (client, message, args) => {
+  if (args.length === 0)
+    return sendMessage(message, 'Use `!define --help` to get command guide.');
+  runUserCommand(message, args.split(' '), args.split(' ')[0]);
+};
+
+
+const maintainerIDs = ['274434863711518722', '415597358752071693'];
 /**
  * command_name: define
  * description: Provides definition for words from web.
@@ -26,12 +39,15 @@ const maxRelatedTopics = 4;
 const notifyErrors = (message, err = '') => {
   // maintainer can be changed by changing the maintainer ID
   // from the top of the file.
-  const maintainer = message.guild.member(maintainerID);
-  maintainer.send(`Message ID: ${message.id}`);
-  maintainer.send('```' + err + '```');
-  message.channel.send(
-    `Some internal error occured, maintainer ${maintainer} has been notified.`
-  );
+  
+  for(let i = 0; i < maintainerIDs.length; i++) {
+      const maintainer = message.guild.member(maintainerIDs[i]);
+      maintainer.send(`Message ID: ${message.id}`);
+      maintainer.send('```' + err + '```');
+      message.channel.send(
+        `Some internal error occured, the maintainers have been notified.`
+      );
+  }
 };
 /**
  * name: sendMessage
@@ -225,14 +241,4 @@ GUIDE
     \`\`\` 
     `
   );
-};
-
-module.exports.help = 'Search ddg and wikipedia for definition';
-module.exports.category = 'Web';
-module.exports.args = ['?wiki', 'search-string'];
-// run function for !define command:
-exports.run = (client, message, args) => {
-  if (args.length === 0)
-    return sendMessage(message, 'Use `!define --help` to get command guide.');
-  runUserCommand(message, args.split(' '), args.split(' ')[0]);
 };
