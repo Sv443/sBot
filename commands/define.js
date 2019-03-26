@@ -41,7 +41,7 @@ const notifyErrors = (message, err = '') => {
   // from the top of the file.
   
   for(let i = 0; i < maintainerIDs.length; i++) {
-      const maintainer = message.guild.member(maintainerIDs[i]);
+      let maintainer = message.guild.member(maintainerIDs[i]);
       maintainer.send(`Message ID: ${message.id}`);
       maintainer.send('```' + err + '```');
       message.channel.send(
