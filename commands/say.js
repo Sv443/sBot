@@ -7,6 +7,9 @@ module.exports.args = ["?Channel", "Message"];
 module.exports.run = (client, message, args) => {
     var sayInChannel, sendMsg;
 
+    var allowToUse = false;
+    for(let i = 0; i < settings.dev_ids.length; i++) if(message.author.id == settings.dev_ids[i]) allowToUse = true;
+
     if(jsl.isEmpty(args)) return message.delete();
     if(args.split(" ")[0].split("")[0] == "<" && args.split(" ")[0].split("")[1] == "#") {
         sayInChannel = args.split(" ")[0];
@@ -16,7 +19,7 @@ module.exports.run = (client, message, args) => {
         sendMsg = sendMsg.join(" ");
     }
 
-    if(message.member.permissions.has("MANAGE_MESSAGES")) {
+    if(message.member.permissions.has("MANAGE_MESSAGES") || allowToUse) {
         if(jsl.isEmpty(sayInChannel)) {
             message.delete().then(m=>{
                 message.channel.send(args);

@@ -5,10 +5,11 @@ module.exports = {
     command_prefix: "^",
     client_id: "524324404583464960",
     dev_ids: ["415597358752071693"],
-    avatar_url: "http://sv443.ddns.net/cdn/sBot/dev_pfp2.png",
-    website_url: "http://sv443.ddns.net/r/sBot",
+    mainMaintainerID: "415597358752071693",
+    avatar_url: "http://sv443.net/cdn/sBot/pfp2.png",
+    website_url: "http://sv443.net/r/sBot",
     embed: {
-        footer: "Homepage: sv443.ddns.net/r/sBot",
+        footer: "Bot homepage: https://sv443.net/r/sBot",
         color: "#f99f3e"
     },
     redeployed_status_timeout: 10000,
@@ -29,8 +30,8 @@ module.exports = {
             max: 20
         },
         joke: {
-            icon: "http://sv443.ddns.net/cdn/jokeapi/icon_small.png",
-            category: "Miscellaneous"
+            icon: "https://sv443.net/cdn/jokeapi/icon_small.png",
+            baseURL: "http://0.0.0.0:8079"
         },
         ping: {
             timeout: 6000
@@ -44,16 +45,23 @@ module.exports = {
             min: 1,
             max: 1440,
             default: 5
+        },
+        fact: {
+            url: "http://randomuselessfact.appspot.com/random.json?language=en"
         }
     },
     loadingURL: "https://sv443.net/cdn/sBot/loading2.gif",
     serverSpecifics: {
         supportServer: {
-            httpPort: 8077,
+            httpPort: 8078,
             logFile: "./data/latestGithubRequest.log",
-            githubIcon: "http://sv443.ddns.net/resources/images/github.png",
+            githubIcon: "https://sv443.net/resources/images/github.png",
             id: "524655091538460672",
             logChannel: "534277477753815045"
+        },
+        briljaCraft: {
+            guildID: "573179771102560276",
+            newUserRoleName: "Member"
         }
     }
 };

@@ -13,8 +13,9 @@ console.log("\n\x1b[32m\x1b[1mInitializing " + settings.bot_name + " v" + settin
 
 
 const serverSpecifics = [
-    require("./serverSpecifics/supportServer.js")
-]
+    require("./serverSpecifics/supportServer"),
+    require("./serverSpecifics/briljaCraft")
+];
 
 
 
@@ -38,6 +39,10 @@ process.stdout.write("\n");
 console.log("Total: \x1b[33m\x1b[1m" + totalCmds + "\x1b[0m");
 console.log("Permissions: \x1b[34m\x1b[1mNormal User \x1b[31mDeveloper \x1b[33mAdmin\n\x1b[0m");
 
+
+client.on('error', (err) => {
+    console.log("\n\n    \x1b[31m\x1b[1m[Client Error]: \x1b[0m" + err.message)
+});
 
 client.on("ready", () => {
     serverSpecifics.forEach(sp => { // run server specifics

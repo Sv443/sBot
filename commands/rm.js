@@ -6,9 +6,12 @@ module.exports.help = "removes specified amount of messages - max is " + setting
 module.exports.args = ["Number"];
 module.exports.run = (client, message, args) => {
 
+    var allowToUse = false;
+    for(let i = 0; i < settings.dev_ids.length; i++) if(message.author.id == settings.dev_ids[i]) allowToUse = true;
+
     args = parseInt(args);
 
-    if(!message.member.hasPermission("MANAGE_MESSAGES")) return message.reply("you don't have enough permissions to do that!");
+    if(!message.member.hasPermission("MANAGE_MESSAGES") && !allowToUse) return message.reply("you don't have enough permissions to do that!");
 
     if(isNaN(args) || jsl.isEmpty(args)) return message.reply("please enter a number between " + settings.command_settings.rm.min + " and " + settings.command_settings.rm.max);
 

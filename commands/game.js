@@ -9,6 +9,7 @@ const settings = require("../settings.js");
 module.exports.help = "Play a small game directly in the chat";
 module.exports.category = "Fun";
 module.exports.run = (client, message, args) => {
+    return message.reply("I'm sorry, but I can't play games just yet.");
     if(jsl.isEmpty(args) || args.toLowerCase() == "help") return help(client, message, args);
     else parseGame(client, message, args);
 };
