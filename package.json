@@ -11,7 +11,7 @@
   "dependencies": {
     "discord-rpc": "^3.0.1",
     "discord.js": "^11.4.2",
-    "dotenv": "^6.2.0",
+    "dotenv": "^8.1.0",
     "node-wrap": "^0.2.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
