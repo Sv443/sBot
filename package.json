@@ -4,7 +4,9 @@
   "description": "",
   "main": "wrapper.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
   "license": "MIT",
@@ -16,6 +18,8 @@
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "svjsl": "^1.7.0",
-    "xmlhttprequest": "^1.8.0"
-  }
+    "xmlhttprequest": "^1.8.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
