@@ -36,6 +36,7 @@ Note: every argument that's prefixed with a `?` is optional
 - `^pokemon [Name]`: Gets some info about the specified Pokémon
 - `^server`: Responds with some info about the server
 - `^steam [User]`: Returns some info about the specified Steam user
+- `^space`: Returns a random space image
 
 <br><br><br><br>
 
