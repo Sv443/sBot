@@ -17,7 +17,7 @@ module.exports.run = (client, message, args) => {
 			message.channel.send(loadingembed).then(smsg => {
 
 				let catxhr = new XMLHttpRequest();
-				catxhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/categories?format=json`);
+				catxhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/v2/joke/Any?format=json`);
 				catxhr.onreadystatechange = () => {
 					if(catxhr.readyState == 4 && catxhr.status == 200) {
 						let availableCategories = JSON.parse(catxhr.responseText).categories, jokeCategory;
@@ -38,7 +38,7 @@ module.exports.run = (client, message, args) => {
 						else jokeCategory = args[0];
 
 						var xhr = new XMLHttpRequest();
-						xhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/category/${jokeCategory}?format=json`, true);
+						xhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/v2/joke/Any/${jokeCategory}?format=json`, true);
 						xhr.setRequestHeader("Content-type", "application/json; utf-8");
 						xhr.onreadystatechange = () => {
 							if(xhr.readyState == 4 && xhr.status == 200) {
