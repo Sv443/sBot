@@ -1,7 +1,7 @@
 {
-  "name": "sbot",
-  "version": "0.5.0",
-  "description": "",
+  "name": "@sv443/sbot",
+  "version": "0.6.0",
+  "description": "A fun and useful Discord Bot that was designed as a bot that has many different features from as many categories as possible to give every user something they can enjoy. ",
   "main": "wrapper.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,12 +9,12 @@
   "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
   "license": "MIT",
   "dependencies": {
-    "discord-rpc": "^3.0.1",
+    "discord-rpc": "^3.1.3",
     "discord.js": "^12.2.0",
     "dotenv": "^8.1.0",
     "node-wrap": "^0.2.0",
     "request": "^2.88.0",
-    "request-promise-native": "^1.0.7",
+    "request-promise-native": "^1.0.9",
     "svjsl": "^1.9.3",
     "xmlhttprequest": "^1.8.0"
   }
