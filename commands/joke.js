@@ -17,7 +17,7 @@ module.exports.run = (client, message, args) => {
 			message.channel.send(loadingembed).then(smsg => {
 
 				let catxhr = new XMLHttpRequest();
-				catxhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/categories?format=json`);
+				catxhr.open("GET", `${settings.command_settings.joke.baseURL}/categories`);
 				catxhr.onreadystatechange = () => {
 					if(catxhr.readyState == 4 && catxhr.status == 200) {
 						let availableCategories = JSON.parse(catxhr.responseText).categories, jokeCategory;
@@ -25,7 +25,7 @@ module.exports.run = (client, message, args) => {
 						if(args[0] === "") {
 							let noCat = new Discord.RichEmbed()
 								.setColor(settings.embed.color)
-								.setDescription(`**Joke category was left empty - Please specify any of the following categories (case sensitive):**\n- ${JSON.parse(catxhr.responseText).categories.join("\n- ")}\n\nExample: \`${settings.command_prefix}joke Miscellaneous\``);
+								.setDescription(`**Joke category was left empty - Please specify any of the following categories (case sensitive):**\n- ${JSON.parse(catxhr.responseText).categories.join("\n- ")}\n\nExample: \`${settings.command_prefix}joke Miscellaneous\`\n\nTo submit a joke, please [click here](${settings.command_settings.joke.baseURL}#submit)`);
 							return smsg.edit(noCat);
 						}
 
@@ -38,7 +38,7 @@ module.exports.run = (client, message, args) => {
 						else jokeCategory = args[0];
 
 						var xhr = new XMLHttpRequest();
-						xhr.open("GET", `${settings.command_settings.joke.baseURL}/jokeapi/category/${jokeCategory}?format=json`, true);
+						xhr.open("GET", `${settings.command_settings.joke.baseURL}/joke/${jokeCategory}`, true);
 						xhr.setRequestHeader("Content-type", "application/json; utf-8");
 						xhr.onreadystatechange = () => {
 							if(xhr.readyState == 4 && xhr.status == 200) {
@@ -48,7 +48,7 @@ module.exports.run = (client, message, args) => {
 								if(joketype == "single") {
 									let embed = new Discord.RichEmbed()
 										.setDescription(JSON.parse(xhr.responseText).joke)
-										.setFooter(`ID: ${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (https://sv443.net/jokeapi)`, settings.command_settings.joke.icon)
+										.setFooter(`#${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (${settings.command_settings.joke.baseURL})`, settings.command_settings.joke.icon)
 										.addBlankField()
 										.setColor(settings.embed.color);
 									return smsg.edit(embed);
@@ -56,14 +56,14 @@ module.exports.run = (client, message, args) => {
 								else if(joketype == "twopart") {
 									let embed = new Discord.RichEmbed()
 										.setDescription(JSON.parse(xhr.responseText).setup + "\n\n(...)")
-										.setFooter(`ID: ${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (https://sv443.net/jokeapi)`, settings.command_settings.joke.icon)
+										.setFooter(`#${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (${settings.command_settings.joke.baseURL})`, settings.command_settings.joke.icon)
 										.addBlankField()
 										.setColor(settings.embed.color);
 									smsg.edit(embed).then(m => {
 										setTimeout(()=>{
 											let nembed = new Discord.RichEmbed()
 												.setDescription(JSON.parse(xhr.responseText).setup + "\n\n" + JSON.parse(xhr.responseText).delivery)
-												.setFooter(`ID: ${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (https://sv443.net/jokeapi)`, settings.command_settings.joke.icon)
+												.setFooter(`#${JSON.parse(xhr.responseText).id} - Category: ${JSON.parse(xhr.responseText).category} - Powered by JokeAPI (${settings.command_settings.joke.baseURL})`, settings.command_settings.joke.icon)
 												.addBlankField()
 												.setColor(settings.embed.color);
 											return m.edit(nembed);
@@ -77,7 +77,6 @@ module.exports.run = (client, message, args) => {
 									.setDescription(`The Joke API couldn't be reached. Maybe it is down at the moment or you've sent too many requests. Please try again in a few hours.\n\nStatus code: ${xhr.status} - ${xhr.responseText}`);
 								return smsg.edit(nrembed);
 							}
-							else process.stdout.write(xhr.readyState);
 						};
 						xhr.send();
 						

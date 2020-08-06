@@ -3,6 +3,7 @@ const settings = require("../settings.js");
 
 module.exports = client => {
     process.stdout.write("\x1b[0m");
+    return;
 
     client.on("guildMemberAdd", member => {
         if(member.guild.id == settings.serverSpecifics.briljaCraft.guildID)

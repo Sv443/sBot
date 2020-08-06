@@ -128,7 +128,9 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
 
     function respError(err, status) {
         let nembed = new Discord.RichEmbed().setDescription("📡 Couldn't reach the Steam API! (Status " + status + ")\nGot error: " + err).setColor(settings.embed.color);
-        return loadingembed.edit(nembed);
+        if(loadingembed && typeof loadingembed.edit == "function")
+            return loadingembed.edit(nembed);
+        else message.channel.send(`Error: ${status} - ${err}`);
     }
 
     // get ID: https://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key=KEY&vanityurl=USERNAME

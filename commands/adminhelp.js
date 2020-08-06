@@ -11,7 +11,8 @@ module.exports.run = (client, message, args) => {
         fs.readdirSync("./commands/").forEach(file => { // get all available commands
             if(require("../commands/" + file).isAdminCommand != (null || undefined) && require("../commands/" + file).isDevCommand == (null || undefined)) {
                 let cargs = "";
-                if(!jsl.isArrayEmpty(require("../commands/" + file).args)) cargs = " [" + require("../commands/" + file).args.join("], [") + "]";
+                let fArgs = require("../commands/" + file).args;
+                if(fArgs && !jsl.isArrayEmpty(fArgs)) cargs = " [" + require("../commands/" + file).args.join("], [") + "]";
                 availableHelp.push("`" + settings.command_prefix + file.replace(".js", cargs + "` - ") + require("../commands/" + file).help + "\n");
             }
         });

@@ -30,7 +30,7 @@ module.exports.run = (client, message, args) => {
                 var nembed = new Discord.RichEmbed()
                     .setTitle(`Image #${(rnd + 1) + randPage * 25}:`)
                     .setImage(resp[rnd].img_src)
-                    .setFooter(`Only pictures of mars for now, please be patient - Rover: ${rover} - Camera: ${resp[rnd].camera.full_name} - Images by NASA (www.nasa.gov)`)
+                    .setFooter(`Planet: Mars - Rover: ${rover} - Camera: ${resp[rnd].camera.full_name} - Images by NASA (www.nasa.gov)`)
                     .setColor(settings.embed.color);
 
                 if(new Date().getDate() == 5 && new Date().getMonth() == 7) nembed.setDescription("[Happy Birthday, Curiosity!](https://youtu.be/sh2f0COM6-w)"); // happy birthday :)

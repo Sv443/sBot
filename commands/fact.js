@@ -14,8 +14,22 @@ module.exports.run = (client, message, args) => {
         xhr.open("GET", settings.command_settings.fact.url, true);
         xhr.onreadystatechange = () => {
             if(xhr.readyState == 4 && xhr.status < 400) {
-                let fact = JSON.parse(xhr.responseText).text;
-                let source = JSON.parse(xhr.responseText).source_url;
+                let fact = "";
+                let source = "";
+                try
+                {
+                    fact = JSON.parse(xhr.responseText).text;
+                    source = JSON.parse(xhr.responseText).source_url;
+                }
+                catch(err)
+                {
+                    let errEmbed = new Discord.RichEmbed()
+                        .setColor(settings.embed.color)
+                        .setDescription(`Couldn't reach the uselessfacts API - Status: ${xhr.status} - Response: ${xhr.responseText ? xhr.responseText : "(none)"}`)
+                        .setFooter(`Powered by the uselessfacts API (http://randomuselessfact.appspot.com/) - ${settings.embed.footer}`);
+                    smsg.edit(errEmbed);
+                    return;
+                }
 
                 let successEmbed = new Discord.RichEmbed()
                     .setColor(settings.embed.color)

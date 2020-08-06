@@ -1,7 +1,7 @@
 
 module.exports = {
     bot_name: "sBot",
-    version: "0.4.0",
+    version: "0.5.0",
     command_prefix: "^",
     client_id: "524324404583464960",
     dev_ids: ["415597358752071693"],
@@ -31,7 +31,7 @@ module.exports = {
         },
         joke: {
             icon: "https://sv443.net/cdn/jokeapi/icon_small.png",
-            baseURL: "http://0.0.0.0:8079"
+            baseURL: "https://sv443.net/jokeapi/v2"
         },
         ping: {
             timeout: 6000
@@ -47,7 +47,7 @@ module.exports = {
             default: 5
         },
         fact: {
-            url: "http://randomuselessfact.appspot.com/random.json?language=en"
+            url: "https://uselessfacts.jsph.pl/random.json?language=en"
         }
     },
     loadingURL: "https://sv443.net/cdn/sBot/loading2.gif",

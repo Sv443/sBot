@@ -6,12 +6,15 @@ const settings = require("../settings");
 const Discord = require("discord.js");
 
 
-module.exports.help = "Search DDG/Wikipedia for a word's definition";
+module.exports.help = "Search DuckDuckGo/Wikipedia for a word's definition";
 module.exports.category = 'Knowledge';
 module.exports.args = ['?wiki', 'Search String'];
 
 // run function for !define command:
 exports.run = (client, message, args) => {
+  if(Array.isArray(args))
+    args = args.map(a => typeof a == "string" ? a.toLowerCase() : a);
+
   if (args.length === 0)
     return sendMessage(message, `Use \`${settings.command_prefix}define --help\` to display the command guide.`);
   runUserCommand(message, args.split(' '), args.split(' ')[0]);
@@ -127,7 +130,7 @@ const ddgInstantAnswer = async (message, args) => {
   const abstractURL = data['AbstractURL'];
   // if no data is provided:
   if (relatedTopics.length === 0) {
-    result += `Cannot find information on *${searchPhrase}* :no_good: Read the command guide with \`${settings.command_prefix}define --help\` for more information.`;
+    result += `Cannot find information on *${searchPhrase}* - Read the command guide with \`${settings.command_prefix}define --help\` for more information.`;
   } // if abstract data is missing:
   else if (!abstractText || !abstractURL) {
     result += `*"${searchPhrase}" may refer to following things*  :point_down:\n\n`;
@@ -180,7 +183,7 @@ const wikipediaOpenSearch = async (message, args) => {
   let result = definitions[0];
   // no information is received from wikipedia:
   if (!result) {
-    result = `Couldn't find information on *${searchPhrase}* :no_good: `;
+    result = `Couldn't find information on *${searchPhrase}*`;
   } // a word have more than one meaning:
   else if (result.match(/may refer to/g)) {
     result =

@@ -6,7 +6,11 @@ module.exports.isDevCommand = true;
 module.exports.run = (client, message, args) => {
     try {
         var allowToUse = false;
-        for(let i = 0; i < settings.dev_ids.length; i++) if(message.author.id == settings.dev_ids[i]) allowToUse = true;
+        for(let i = 0; i < settings.dev_ids.length; i++)
+	{
+		if(message.author.id == settings.dev_ids[i])
+			allowToUse = true;
+	}
 
         if(allowToUse && !args.includes(".env")) {
             var result;

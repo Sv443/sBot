@@ -1,25 +1,21 @@
 {
   "name": "sbot",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "",
   "main": "wrapper.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
   "license": "MIT",
   "dependencies": {
     "discord-rpc": "^3.0.1",
-    "discord.js": "^11.4.2",
+    "discord.js": "^12.2.0",
     "dotenv": "^8.1.0",
     "node-wrap": "^0.2.0",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
-    "svjsl": "^1.7.0",
-    "xmlhttprequest": "^1.8.0",
-    "snyk": "^1.316.1"
-  },
-  "snyk": true
+    "svjsl": "^1.9.3",
+    "xmlhttprequest": "^1.8.0"
+  }
 }
