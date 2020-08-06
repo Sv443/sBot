@@ -23,14 +23,14 @@ module.exports.run = (client, message, args) => {
                         if(result.then != null) {
                             result = "[Promise]";
                             return result.then(res => {
-                                var embed = new Discord.RichEmbed()
+                                var embed = new Discord.MessageEmbed()
                                     .setTitle(message.author.tag + " just forced me to execute code in `" + message.guild.name + "`:")
                                     .addField("Code:", "```js\n" + args + "\n```")
                                     .addField("Result:", "```Promise: \n" + res + "\n```")
                                     .setFooter("Timestamp (UTC): " + new Date().toUTCString())
                                     .setColor(settings.embed.color);
 
-                                client.guilds.get(settings.serverSpecifics.supportServer.id).channels.get(settings.serverSpecifics.supportServer.logChannel).send(embed);
+                                client.guilds.cache.get(settings.serverSpecifics.supportServer.id).channels.cache.get(settings.serverSpecifics.supportServer.logChannel).send(embed);
                                 message.author.send("**Promise Result:**\n" + res);
                             });
                         }
@@ -43,14 +43,14 @@ module.exports.run = (client, message, args) => {
 
             message.author.send("**Result:**\n" + result);
 
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
                 .setTitle(message.author.tag + " just forced me to execute code in `" + message.guild.name + "`:")
                 .addField("Code:", "```js\n" + args + "\n```")
                 .addField("Result:", "```\n" + result + "\n```")
                 .setFooter("Timestamp (UTC): " + new Date().toUTCString())
                 .setColor(settings.embed.color);
 
-            client.guilds.get(settings.serverSpecifics.supportServer.id).channels.get(settings.serverSpecifics.supportServer.logChannel).send(embed);
+            client.guilds.cache.get(settings.serverSpecifics.supportServer.id).channels.cache.get(settings.serverSpecifics.supportServer.logChannel).send(embed);
         }
         else return message.reply("this command can only be used by the developer.");
     }

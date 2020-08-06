@@ -6,7 +6,7 @@ module.exports.help = "Tells you a random / useless fact";
 module.exports.category = "Knowledge";
 module.exports.args = [];
 module.exports.run = (client, message, args) => {
-    let loadingembed = new Discord.RichEmbed()
+    let loadingembed = new Discord.MessageEmbed()
         .setFooter("Loading...", settings.loadingURL)
         .setColor(settings.embed.color);
     message.channel.send(loadingembed).then(smsg => {
@@ -23,7 +23,7 @@ module.exports.run = (client, message, args) => {
                 }
                 catch(err)
                 {
-                    let errEmbed = new Discord.RichEmbed()
+                    let errEmbed = new Discord.MessageEmbed()
                         .setColor(settings.embed.color)
                         .setDescription(`Couldn't reach the uselessfacts API - Status: ${xhr.status} - Response: ${xhr.responseText ? xhr.responseText : "(none)"}`)
                         .setFooter(`Powered by the uselessfacts API (http://randomuselessfact.appspot.com/) - ${settings.embed.footer}`);
@@ -31,14 +31,14 @@ module.exports.run = (client, message, args) => {
                     return;
                 }
 
-                let successEmbed = new Discord.RichEmbed()
+                let successEmbed = new Discord.MessageEmbed()
                     .setColor(settings.embed.color)
                     .setDescription(`${fact}\n\n\n[(Source)](${source})`)
                     .setFooter(`Powered by the uselessfacts API (http://randomuselessfact.appspot.com/) - ${settings.embed.footer}`);
                 smsg.edit(successEmbed);
             }
             else if(xhr.readyState == 4 && xhr.status >= 400) {
-                let errEmbed = new Discord.RichEmbed()
+                let errEmbed = new Discord.MessageEmbed()
                     .setColor(settings.embed.color)
                     .setDescription(`Couldn't reach the uselessfacts API - Status: ${xhr.status}`)
                     .setFooter(`Powered by the uselessfacts API (http://randomuselessfact.appspot.com/) - ${settings.embed.footer}`);

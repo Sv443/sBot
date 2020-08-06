@@ -8,6 +8,12 @@ const settings = require("../settings.js");
 module.exports.help = "sENdS a MessAGe lIKe tHIs";
 module.exports.args = ["?Username", "Message"];
 module.exports.category = "Fun";
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     var mention = "";
     if(message.mentions.members.first() != null) {

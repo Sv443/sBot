@@ -22,14 +22,11 @@ function help(client, message, args) {
         allgames[i] = "`" + files[i].replace(/(\.\w*)/gm, "") + "` - " + require("." + settings.command_settings.games.dir + "/" + files[i]).data.shortdesc;
     }
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
         .setColor(settings.embed.color)
         .setFooter(settings.embed.footer)
         .setDescription(`Type \`${settings.command_prefix}game [Name]\` to play a game.`)
-        .addBlankField()
-        .addField("All Games: ", `${allgames.join("\n")}`)
-        .addBlankField();
-
+        .addField("All Games: ", `${allgames.join("\n")}`);
     message.channel.send(embed);
 }
 
@@ -42,7 +39,7 @@ function parseGame(client, message, args) {
         if(files[i].toLowerCase() == selectedGame) {
             yes = true;
             
-            let embed = new Discord.RichEmbed()
+            let embed = new Discord.MessageEmbed()
                 .setTitle(files[i].replace(/(\.\w*)/gm, ""))
                 .setDescription(require("." + settings.command_settings.games.dir + "/" + files[i]).data.description + "\n\n\nClick the white checkmark reaction within " + (settings.command_settings.games.confirmationTimeout / 1000) + " seconds to play the game or don't click it to cancel.")
                 .setColor(settings.embed.color);
@@ -73,7 +70,7 @@ function parseGame(client, message, args) {
 }
 
 function notAccept(m, gamename) {
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
         .setTitle(gamename)
         .setDescription("Cancelled.")
         .setColor(settings.embed.color);

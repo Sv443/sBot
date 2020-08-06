@@ -28,7 +28,7 @@ module.exports = (client) => {
                 if(GHevent == "release") {
                     process.stdout.write(":");
 
-                    var gembed = new Discord.RichEmbed()
+                    var gembed = new Discord.MessageEmbed()
                         .setTitle("A new version of " + settings.bot_name + " (" + JSON.parse(body).release.tag_name + ") was just released!")
                         .setURL(JSON.parse(body).release.html_url)
                         .setAuthor(JSON.parse(body).release.author.login, JSON.parse(body).release.author.avatar_url, JSON.parse(body).release.author.html_url)
@@ -37,7 +37,7 @@ module.exports = (client) => {
                 else if(GHevent == "issues") {
                     var d = JSON.parse(body);
                     if(d.action == "closed") {
-                        var gembed = new Discord.RichEmbed()
+                        var gembed = new Discord.MessageEmbed()
                             .setTitle("The issue **\"" + d.issue.title + "\"** was just closed!")
                             .setAuthor(d.sender.login, d.sender.avatar_url, d.sender.html_url)
                             .addField("URL:", d.issue.html_url, false)
@@ -45,7 +45,7 @@ module.exports = (client) => {
                     }
                     else if(d.action == "opened") {
                         var bod = d.issue.body;
-                        var gembed = new Discord.RichEmbed()
+                        var gembed = new Discord.MessageEmbed()
                             .setTitle("An issue was just opened!")
                             .setAuthor(d.sender.login, d.sender.avatar_url, d.sender.html_url)
                             .setColor(settings.embed.color)
@@ -55,7 +55,7 @@ module.exports = (client) => {
                     }
                 }
                 else return;
-                if(!jsl.isEmpty(gembed)) client.guilds.get("524655091538460672").channels.get("529820652249808907").send(gembed);
+                if(!jsl.isEmpty(gembed)) client.guilds.cache.get("524655091538460672").channels.cache.get("529820652249808907").send(gembed);
             });
         }
         else {

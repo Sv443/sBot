@@ -93,6 +93,10 @@ const runUserCommand = (message, args, commandName) => {
     wiki: wikipediaOpenSearch,
     default: ddgInstantAnswer
   };
+
+  if(args[0] == "wiki")
+    args.shift();
+
   // if commandName does not match any, return default
   return (availableCommands[commandName] || availableCommands.default)(
     message,
@@ -214,12 +218,10 @@ const wikipediaOpenSearch = async (message, args) => {
  * send help to user
  */
 const showHelp = (message, args) => {
-    let helpEmbed = new Discord.RichEmbed()
+    let helpEmbed = new Discord.MessageEmbed()
         .setTitle(`${settings.command_prefix}define - Help:`)
         .addField("**Description:**", `The \`${settings.command_prefix}define\` command looks up abstract information on a word or sentence from DuckDuckGo or Wikipedia.`)
-        .addBlankField()
         .addField("**Commands:**", `1) \`${settings.command_prefix}define [search text]\` - Looks up the search text on DuckDuckGo\n2) \`${settings.command_prefix}define wiki [search text]\` - Returns the definition of the search text on Wikipedia\n3) \`${settings.command_prefix}define --help\` - Displays this help message`)
-        .addBlankField()
         .addField("**Example Usage:**", `\`${settings.command_prefix}define yellow stone\`\n\`${settings.command_prefix}define wiki Object Oriented Programming\``)
         .setFooter(`Command made by ap4gh (https://github.com/ap4gh) - ${settings.embed.footer}`)
         .setColor(settings.embed.color);

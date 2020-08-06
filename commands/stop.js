@@ -11,12 +11,12 @@ module.exports.run = (client, message, args) => {
         if(allowToUse) {
             console.log("\n\n\x1b[31m\x1b[1mReceived stop command from " + message.author.tag + "\x1b[0m");
 
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
                 .setTitle("I was just shut down by " + message.author.username + "#" + message.author.discriminator)
                 .setFooter("Timestamp (UTC): " + new Date().toUTCString())
                 .setColor(settings.embed.color);
 
-            client.guilds.get(settings.serverSpecifics.supportServer.id).channels.get(settings.serverSpecifics.supportServer.logChannel).send(embed).then(m => {
+            client.guilds.cache.get(settings.serverSpecifics.supportServer.id).channels.cache.get(settings.serverSpecifics.supportServer.logChannel).send(embed).then(m => {
                 message.react("👍").then(m => {
                     process.exit(0);
                 });

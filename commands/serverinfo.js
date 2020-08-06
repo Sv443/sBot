@@ -18,7 +18,7 @@ module.exports.run = (client, message, args) => {
     let onlineMembers = g.members.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd")).size - botMembers;
 
     var vL = parseInt(message.guild.verificationLevel);
-    var allLevels = ["None", "Low", "Medium", "(╯°□°）╯︵ ┻━┻", "┻━┻︵\\(ಠ益ಠ)/︵┻━┻"]
+    var allLevels = ["None (1/5)", "Low (2/5)", "Medium (3/5)", "High (4/5)", "Highest (5/5)"]
     try {
         var verificationLevel = allLevels[vL];
     }
@@ -26,7 +26,7 @@ module.exports.run = (client, message, args) => {
         var verificationLevel = "(not available)";
     }
 
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
     .setTitle(g.name + ":")
     .addField("Owner:", g.owner.user.tag, true)
     .addField("Region:", g.region, true)

@@ -2,6 +2,11 @@ const Discord = require("discord.js");
 const jsl = require("svjsl");
 const settings = require("./settings");
 
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Guild} guild 
+ */
 module.exports = (client, guild) => {
     console.log(`JOINED ${guild.name}`);
     var invites;
@@ -9,19 +14,19 @@ module.exports = (client, guild) => {
         guild.fetchInvites().then(ivts => {
             invites = ivts.array().join(", ");
 
-            let oMb = guild.members.size;
-            let membersNoBots = guild.members.filter(member => !member.user.bot).size;
+            let oMb = guild.members.cache.size;
+            let membersNoBots = guild.members.cache.filter(member => !member.user.bot).size;
             let botMembers = oMb - membersNoBots;
-            let allMembers = guild.members.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd" || m.presence.status == "offline")).size - botMembers;
+            let allMembers = guild.members.cache.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd" || m.presence.status == "offline")).size - botMembers;
 
 
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
                 .setTitle("I just joined `" + guild.name + "`.")
                 .addField(`Invite${invites.length != 1 ? "s" : ""}:`, invites)
                 .setFooter("Timestamp (UTC): " + new Date().toUTCString())
                 .setColor(settings.embed.color);
 
-            client.guilds.get("524655091538460672").channels.get("524657306487619604").send(embed);
+            client.guilds.cache.get("524655091538460672").channels.cache.get("524657306487619604").send(embed);
         });
     }
     catch(err) {

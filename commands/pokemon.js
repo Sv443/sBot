@@ -54,18 +54,16 @@ module.exports.run = (client, message, args) => {
                             f_types.push(capitalizeText(types[i].type.name));
                         }
 
-                        let embed = new Discord.RichEmbed()
+                        let embed = new Discord.MessageEmbed()
                             .addField("Name:", capitalizeText(pname), true)
                             .addField("ID:", id, true)
                             .addField("Height:", height + "m / " + convert.distance.toImperial(height) + "ft", true)
                             .addField("Weight:", weight + "kg / " + convert.weight.toImperial(weight) + "lbs", true)
                             .addField((f_types.length > 1 ? "Types:" : "Type:"), f_types.join(", "), true)
                             .addField((f_abilities.length > 1 ? "Abilities:" : "Ability:"), f_abilities.join(", "), true)
-                            .addBlankField()
                             .addField("Description:", splashText, false)
                             .setFooter("Powered by PokéAPI - " + settings.embed.footer)
                             .setThumbnail(iconURL)
-                            .addBlankField()
                             .setColor(settings.embed.color);
 
                         message.channel.send(embed);

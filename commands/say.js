@@ -10,7 +10,8 @@ module.exports.run = (client, message, args) => {
     var allowToUse = false;
     for(let i = 0; i < settings.dev_ids.length; i++) if(message.author.id == settings.dev_ids[i]) allowToUse = true;
 
-    if(jsl.isEmpty(args)) return message.delete();
+    if(jsl.isEmpty(args))
+        return message.delete();
     if(args.split(" ")[0].split("")[0] == "<" && args.split(" ")[0].split("")[1] == "#") {
         sayInChannel = args.split(" ")[0];
         sayInChannel = sayInChannel.substring(2, sayInChannel.length - 1);
@@ -27,7 +28,7 @@ module.exports.run = (client, message, args) => {
         }
         else {
             try {
-                message.guild.channels.get(sayInChannel).send(sendMsg);
+                message.guild.channels.cache.get(sayInChannel).send(sendMsg);
                 message.react("✅");
                 message.delete(5000);
             }

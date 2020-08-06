@@ -16,12 +16,11 @@ module.exports.run = (client, message, args) => {
                 availableHelp.push("`" + settings.command_prefix + file.replace(".js", cargs + "` - ") + require("../commands/" + file).help + "\n");
             }
         });
-        let embed = new Discord.RichEmbed()
-        .setAuthor(settings.bot_name + " v(" + settings.version + ") - Admin Commands (" + availableHelp.length + "):", settings.avatar_url)
-        .setDescription("Arguments prefixed with `?` are optional.\n\n" + availableHelp.join("") + "\n\nInvite " + settings.bot_name + " to your server or join the Support Server to get some help using this URL: " + settings.website_url + "\n\n")
-        .setFooter(settings.embed.footer)
-        .setColor(settings.embed.color)
-        .addBlankField();
+        let embed = new Discord.MessageEmbed()
+            .setAuthor(settings.bot_name + " v(" + settings.version + ") - Admin Commands (" + availableHelp.length + "):", settings.avatar_url)
+            .setDescription("Arguments prefixed with `?` are optional.\n\n" + availableHelp.join("") + "\n\nInvite " + settings.bot_name + " to your server or join the Support Server to get some help using this URL: " + settings.website_url + "\n\n")
+            .setFooter(settings.embed.footer)
+            .setColor(settings.embed.color);
 
         message.channel.send(embed);
     }

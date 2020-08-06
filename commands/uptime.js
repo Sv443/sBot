@@ -5,7 +5,7 @@ module.exports.run = (client, message, args) => {
     let totalSeconds = (client.uptime / 1000);
     let u = {
         seconds: Math.floor(totalSeconds % 60),
-        minutes: Math.floor(totalSeconds / 60 / 60),
+        minutes: Math.floor((totalSeconds / 60) / 60),
         hours: Math.floor(totalSeconds / 3600),
         days: Math.floor(totalSeconds / 86400)
     }

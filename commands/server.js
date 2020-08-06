@@ -10,7 +10,7 @@ module.exports.run = (client, message, args) => {
     message.reply("Member count: " + g.memberCount);
     message.reply("Owner: " + g.owner.displayName);*/
     
-    let embed = new Discord.RichEmbed()
+    let embed = new Discord.MessageEmbed()
     .setTitle(g.name + ":")
     .setDescription("**Owner:** " + g.owner.displayName
     + "\n**Created:** " + g.createdAt.toString().replace(/(\(GMT\+\d*\:\d*\))/gm, "")
@@ -18,7 +18,6 @@ module.exports.run = (client, message, args) => {
     + "\n**Members:** " + g.memberCount)
     .setThumbnail(g.iconURL)
     .setColor(settings.embed.color)
-    .addBlankField()
     .setFooter(settings.embed.footer)
 
     message.channel.send(embed);

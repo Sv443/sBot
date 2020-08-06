@@ -28,10 +28,10 @@ module.exports.run = (client, message, args) => {
     }
 
     try {
-        if(jsl.isEmpty(muteUser)) muteUser = client.users.find(user => user.username == args.split(" ")[0]);
+        if(jsl.isEmpty(muteUser)) muteUser = client.users.cache.find(user => user.username == args.split(" ")[0]);
     }
     catch(err) {
-        if(jsl.isEmpty(muteUser)) muteUser = client.users.find(user => user.username == args);
+        if(jsl.isEmpty(muteUser)) muteUser = client.users.cache.find(user => user.username == args);
     }
 
     if(jsl.isEmpty(muteUser.tag) || muteUser.tag == "undefined") return message.reply("please don't mention the user you want to mute.\nExample: `^mute User1234`, not `^mute @User1234`");

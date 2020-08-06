@@ -11,7 +11,7 @@ module.exports.run = (client, message, args) => {
         if(allowToUse) {
             console.log("\n\n\x1b[31m\x1b[1mReceived restart command from " + message.author.tag + "\x1b[0m");
 
-            /*var embed = new Discord.RichEmbed()
+            /*var embed = new Discord.MessageEmbed()
                 .setTitle("I was just restarted by " + message.author.username + "#" + message.author.discriminator)
                 .setFooter("Timestamp (UTC): " + new Date().toUTCString())
                 .setColor(settings.embed.color);

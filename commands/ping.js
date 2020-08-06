@@ -11,14 +11,14 @@ module.exports.run = (client, message, args) => {
     args = args.toLowerCase();
     try {
         if(jsl.isEmpty(args)) {
-            let embed = new Discord.RichEmbed()
+            let embed = new Discord.MessageEmbed()
                 .setTitle("Pong!")
                 .setDescription("Discord responded within **" + Math.floor(client.ping) + "ms**")
                 .setColor(settings.embed.color);
             return message.channel.send(embed);
         }
         else if(args.includes("://") && args.includes("http") && args.includes(".") && args.includes("/")) {
-            args = args.toString();
+            args = new URL(args.toString());
             jsl.ping(args, settings.command_settings.ping.timeout).then(res=>{
                 return message.reply("pinged `" + args + "` and got status **" + res.statusCode + " - " + res.statusMessage + "** within **" + res.responseTime + "ms**");
             }, rej => {

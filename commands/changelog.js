@@ -14,7 +14,7 @@ module.exports.run = (client, message, args) => {
         var title = latestCL.split("%%SPLITTER%%")[0];
         var desc = latestCL.split("%%SPLITTER%%")[1];
 
-        let embed = new Discord.RichEmbed()
+        let embed = new Discord.MessageEmbed()
             .setTitle(`Version ${title}:`)
             .setDescription(desc)
             .addBlankField()

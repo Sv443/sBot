@@ -15,17 +15,16 @@ module.exports.run = (client, message, args) => {
             let fatal = fs.readFileSync("./data/fatalError.txt").toString();
             let feature = fs.readFileSync("./data/featureRequests.txt").toString();
 
-            let embed = new Discord.RichEmbed()
-            .setTitle("All Data:")
-            .setDescription("**Bug Reports:**\n```\n"
-            + (jsl.isEmpty(bugs) ? "(none)" : bugs) + "\n```\n\n"
-            + "**Fatal Errors:**\n```\n"
-            + (jsl.isEmpty(fatal) ? "(none)" : fatal) + "\n```\n\n"
-            + "**Feature Requests:**\n```\n"
-            + (jsl.isEmpty(feature) ? "(none)" : feature) + "\n```")
-            .setColor(settings.embed.color)
-            .setFooter(settings.embed.footer)
-            .addBlankField();
+            let embed = new Discord.MessageEmbed()
+                .setTitle("All Data:")
+                .setDescription("**Bug Reports:**\n```\n"
+                + (jsl.isEmpty(bugs) ? "(none)" : bugs) + "\n```\n\n"
+                + "**Fatal Errors:**\n```\n"
+                + (jsl.isEmpty(fatal) ? "(none)" : fatal) + "\n```\n\n"
+                + "**Feature Requests:**\n```\n"
+                + (jsl.isEmpty(feature) ? "(none)" : feature) + "\n```")
+                .setColor(settings.embed.color)
+                .setFooter(settings.embed.footer);
 
             message.channel.send(embed);
         }

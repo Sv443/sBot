@@ -5,6 +5,7 @@ const settings = require("./settings.js");
 
 
 module.exports = (client, guild) => {
+    return;
     var invites;
     try {
         guild.fetchInvites().then(ivts => {
@@ -16,7 +17,7 @@ module.exports = (client, guild) => {
             let allMembers = guild.members.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd" || m.presence.status == "offline")).size - botMembers;
 
 
-            var embed = new Discord.RichEmbed()
+            var embed = new Discord.MessageEmbed()
                 .setTitle("I just joined `" + guild.name + "` and it might be a bot farm!")
                 .addField("Ratio Humans / Bots:", allMembers + " Humans  **/**  " + botMembers + " Bots")
                 .addField("Invites:", invites)

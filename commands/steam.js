@@ -1,3 +1,5 @@
+// warning: this code is absolutely atrocious - view at your own risk
+
 const Discord = require("discord.js");
 const jsl = require("svjsl");
 const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
@@ -22,7 +24,7 @@ module.exports.args = ["Username"];
 module.exports.run = (client, message, args) => { // https://developer.valvesoftware.com/wiki/Steam_Web_API
     if(jsl.isEmpty(args)) return message.reply("please enter a Steam username. Example: `" + settings.command_prefix + "steam Sv443`");
 
-    var loadingembed = new Discord.RichEmbed()
+    var loadingembed = new Discord.MessageEmbed()
 		.setFooter("Fetching steam profile...", settings.loadingURL)
         .setColor(settings.embed.color);
         
@@ -32,7 +34,7 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
         idxhr.onreadystatechange = () => {
             if(idxhr.readyState == 4 && idxhr.status == 200) {
                 var userid = JSON.parse(idxhr.responseText).response.steamid;
-                if(JSON.parse(idxhr.responseText).response.success == 42) return loadingembed.edit(new Discord.RichEmbed().setDescription("Couldn't find Steam user **" + args + "**.\nMaybe their profile is private or you misspelt it.").setColor(settings.embed.color));
+                if(JSON.parse(idxhr.responseText).response.success == 42) return loadingembed.edit(new Discord.MessageEmbed().setDescription("Couldn't find Steam user **" + args + "**.\nMaybe their profile is private or you misspelt it.").setColor(settings.embed.color));
 
                 var prxhr = new XMLHttpRequest();
                 prxhr.open("GET", profileURL + "?key=" + steamKey.toString() + "&steamids=" + userid, true);
@@ -82,7 +84,7 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
                                                         if(ccx) country = JSON.parse(ccxhr.responseText).name + ", " + JSON.parse(ccxhr.responseText).region;
                                                         else country = "(private)";
 
-                                                        let nembed = new Discord.RichEmbed()
+                                                        let nembed = new Discord.MessageEmbed()
                                                             .setTitle("Showing info about Steam user **" + res1.personaname + "**:")
                                                             .setThumbnail(res1.avatarmedium)
                                                             .addField("Username:", res1.personaname, true)
@@ -91,11 +93,8 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
                                                             .addField("Country:", country == undefined ? "(private)" : country, true)
                                                             .addField("SteamID:", res1.steamid, true)
                                                             .addField("Bans:", totalbans, true)
-                                                            .addBlankField()
                                                             .addField("Recently Played Games:", recentlyplayedgames, false)
-                                                            .addBlankField()
                                                             .addField("Profile URL:", res1.profileurl, false)
-                                                            .addBlankField()
                                                             .setFooter(settings.embed.footer)
                                                             .setColor(settings.embed.color);
 
@@ -127,7 +126,7 @@ module.exports.run = (client, message, args) => { // https://developer.valvesoft
     });
 
     function respError(err, status) {
-        let nembed = new Discord.RichEmbed().setDescription("📡 Couldn't reach the Steam API! (Status " + status + ")\nGot error: " + err).setColor(settings.embed.color);
+        let nembed = new Discord.MessageEmbed().setDescription("📡 Couldn't reach the Steam API! (Status " + status + ")\nGot error: " + err).setColor(settings.embed.color);
         if(loadingembed && typeof loadingembed.edit == "function")
             return loadingembed.edit(nembed);
         else message.channel.send(`Error: ${status} - ${err}`);

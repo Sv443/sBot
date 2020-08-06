@@ -3,6 +3,12 @@ const settings = require("../settings.js");
 
 
 module.exports.isDevCommand = true;
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {*} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     try {
         var allowToUse = false;
@@ -10,12 +16,12 @@ module.exports.run = (client, message, args) => {
 
         if(allowToUse) {
             var invites = ["succ"], ct = 0;
-            client.guilds.forEach(g => {
+            client.guilds.cache.array().forEach(g => {
                 g.fetchInvites().then(guildInvites => {
                     invites[invites.length + 1] = (g + ": `Invites: " + guildInvites.array().join(", ") + "`");
                     ct++;
 
-                    if(ct >= client.guilds.size) {
+                    if(ct >= client.guilds.cache.size) {
                         for(let i = 0; i < invites.length; i++) {
                             if(invites[i] == undefined) invites.splice(i, 1);
                         }
@@ -25,7 +31,7 @@ module.exports.run = (client, message, args) => {
                         for(let i = 0; i < invites.length; i++) invites[i] = "- " + invites[i];
                         invites = invites.join("\n\n");
 
-                        let embed = new Discord.RichEmbed()
+                        let embed = new Discord.MessageEmbed()
                         .setTitle("All Invites:")
                         .setDescription(invites)
                         .setColor(settings.embed.color);

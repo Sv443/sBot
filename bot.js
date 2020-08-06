@@ -24,6 +24,9 @@ process.stdout.write("Loading commands: ");
 
 var availableCommands = [], totalCmds = 0;
 fs.readdirSync("./commands/").forEach(file => { // get all available commands
+    if(file.endsWith(".disabled"))
+        return;
+
     availableCommands.push(file.replace(".js", ""));
 
     let isAdminCommand = require("./commands/" + file).isAdminCommand != (null || undefined);
@@ -51,7 +54,7 @@ client.on("ready", () => {
 
 
     client.user.setAvatar(settings.avatar_url).catch(err => {});
-    console.log("\n\x1b[32m\x1b[1mInitialization complete, waiting for commands in \x1b[33m" + client.channels.size + "\x1b[32m channels on \x1b[33m" + client.guilds.size + "\x1b[32m servers for a total of \x1b[33m" + client.users.size + "\x1b[32m users.\x1b[0m\n");
+    console.log("\n\x1b[32m\x1b[1mInitialization complete, waiting for commands in \x1b[33m" + client.channels.cache.size + "\x1b[32m channels on \x1b[33m" + client.guilds.cache.size + "\x1b[32m servers for a total of \x1b[33m" + client.users.cache.size + "\x1b[32m users.\x1b[0m\n");
     setRedeployedStatus();
 
     client.on("message", message => {
@@ -97,8 +100,8 @@ client.on("ready", () => {
     });
 
     client.on("guildCreate", guild => {
-        let oMb = guild.members.size;
-        let membersNoBots = guild.members.filter(member => !member.user.bot).size;
+        let oMb = guild.members.cache.size;
+        let membersNoBots = guild.members.cache.filter(member => !member.user.bot).size;
         let botMembers = oMb - membersNoBots;
 
         if(botMembers > membersNoBots) botFarmProcedure(client, guild);
@@ -119,7 +122,7 @@ function setRedeployedStatus() {
 }
 
 function setDefaultActivity() {
-    client.user.setActivity(settings.default_activity.message.replace("%GUILDS_SIZE%", client.guilds.size).replace("%COMMAND_PREFIX%", settings.command_prefix), { type: settings.default_activity.type });
+    client.user.setActivity(settings.default_activity.message.replace("%GUILDS_SIZE%", client.guilds.cache.size).replace("%COMMAND_PREFIX%", settings.command_prefix), { type: settings.default_activity.type });
 }
 
 jsl.softShutdown(()=>{
