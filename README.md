@@ -36,6 +36,11 @@ Note: every argument that's prefixed with a `?` is optional
 - `^pokemon [Name]`: Gets some info about the specified Pokémon
 - `^server`: Responds with some info about the server
 - `^steam [User]`: Returns some info about the specified Steam user
+- `^mock [?Username], [Message]`: sENdS a MessAGe lIKe tHIs
+- `^define [?wiki], [Search String]`: Search DuckDuckGo/Wikipedia for a word's definition
+- `^fact`: Tells you a random / useless fact
+- `^changelog`: Returns the latest versions changelog
+- `^uptime`: Responds with the Bot's uptime
 
 <br><br><br><br>
 
