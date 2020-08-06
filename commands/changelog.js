@@ -17,7 +17,6 @@ module.exports.run = (client, message, args) => {
         let embed = new Discord.MessageEmbed()
             .setTitle(`Version ${title}:`)
             .setDescription(desc)
-            .addBlankField()
             .setFooter(settings.embed.footer)
             .setColor(settings.embed.color);
         message.channel.send(embed);

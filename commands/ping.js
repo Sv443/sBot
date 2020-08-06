@@ -7,6 +7,12 @@ const settings = require("../settings.js");
 module.exports.help = "Responds with \"pong\" and the API latency if no URL is provided or else pings the specified URL";
 module.exports.category = "Miscellaneous";
 module.exports.args = ["?URL"];
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     args = args.toLowerCase();
     try {

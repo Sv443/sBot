@@ -22,7 +22,7 @@ module.exports.run = (client, message, args) => {
     }
     if(args.length < 2) return message.reply("please enter a valid message.\nExample: `" + settings.command_prefix + "mock @User stop bullying me guys!`");
 
-    var mockEmoji = client.guilds.get(settings.serverSpecifics.supportServer.id).emojis.find(em => em.name == "mocking");
+    var mockEmoji = client.guilds.cache.get(settings.serverSpecifics.supportServer.id).emojis.cache.find(em => em.name == "mocking");
     var splitMsg = args.toLowerCase().split("");
     for(let i = 0; i < splitMsg.length; i++) {
         if(jsl.randRange(0, 1) == 1) splitMsg[i] = splitMsg[i].toUpperCase();

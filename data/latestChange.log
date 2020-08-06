@@ -1,2 +1,3 @@
-0.5.0%%SPLITTER%%
-- fixed commands: `^help`, `^adminhelp`, `^fact`, `^joke`, `^mock` and `^steam`
+0.6.0%%SPLITTER%%
+- refactored some code
+- updated to Discord.js v12, making sBot not die in October 2020

@@ -6,9 +6,11 @@ const settings = require("../settings");
 const Discord = require("discord.js");
 
 
-module.exports.help = "Search DuckDuckGo/Wikipedia for a word's definition";
+
+
+module.exports.help = "Search DuckDuckGo for a word's definition";
 module.exports.category = 'Knowledge';
-module.exports.args = ['?wiki', 'Search String'];
+module.exports.args = ['Search String'];
 
 // run function for !define command:
 exports.run = (client, message, args) => {
@@ -90,12 +92,12 @@ const generateQueryURL = (phrase, service = 'ddg') => {
 const runUserCommand = (message, args, commandName) => {
   const availableCommands = {
     '--help': showHelp,
-    wiki: wikipediaOpenSearch,
+    // wiki: wikipediaOpenSearch,
     default: ddgInstantAnswer
   };
 
-  if(args[0] == "wiki")
-    args.shift();
+  // if(args[0] == "wiki")
+  //   args.shift();
 
   // if commandName does not match any, return default
   return (availableCommands[commandName] || availableCommands.default)(
@@ -167,8 +169,9 @@ const wikipediaOpenSearch = async (message, args) => {
   const searchPhrase = args.join(' ');
   let data;
   try {
+    let url = generateQueryURL(searchPhrase, 'wiki');
     data = await request({
-      url: generateQueryURL(searchPhrase, 'wiki'),
+      url: url,
       json: true,
       headers: {
         'Content-Type': 'application/json'

@@ -1,8 +1,8 @@
 
 module.exports = {
     bot_name: "sBot",
-    version: "0.5.0",
-    command_prefix: "^",
+    version: "0.6.0",
+    command_prefix: "°",
     client_id: "524324404583464960",
     dev_ids: ["415597358752071693"],
     mainMaintainerID: "415597358752071693",

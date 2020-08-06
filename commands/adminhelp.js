@@ -9,6 +9,9 @@ module.exports.run = (client, message, args) => {
     if(message.member.permissions.has("KICK_MEMBERS")) {
         var availableHelp = [];
         fs.readdirSync("./commands/").forEach(file => { // get all available commands
+            if(file.endsWith(".disabled"))
+                return;
+
             if(require("../commands/" + file).isAdminCommand != (null || undefined) && require("../commands/" + file).isDevCommand == (null || undefined)) {
                 let cargs = "";
                 let fArgs = require("../commands/" + file).args;

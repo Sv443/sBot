@@ -18,8 +18,9 @@ module.exports.run = (client, message, args) => {
                 let source = "";
                 try
                 {
-                    fact = JSON.parse(xhr.responseText).text;
-                    source = JSON.parse(xhr.responseText).source_url;
+                    let obj = JSON.parse(xhr.responseText);
+                    fact = obj.text.replace(/\`/gm, "'");
+                    source = obj.source_url;
                 }
                 catch(err)
                 {
@@ -33,7 +34,7 @@ module.exports.run = (client, message, args) => {
 
                 let successEmbed = new Discord.MessageEmbed()
                     .setColor(settings.embed.color)
-                    .setDescription(`${fact}\n\n\n[(Source)](${source})`)
+                    .setDescription(`${fact}\n\n[(Source)](${source})`)
                     .setFooter(`Powered by the uselessfacts API (http://randomuselessfact.appspot.com/) - ${settings.embed.footer}`);
                 smsg.edit(successEmbed);
             }

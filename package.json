@@ -13,6 +13,8 @@
     "discord.js": "^12.2.0",
     "dotenv": "^8.1.0",
     "node-wrap": "^0.2.0",
+    "pageviews": "^1.4.3",
+    "register-scheme": "github:devsnek/node-register-scheme",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.9",
     "svjsl": "^1.9.3",

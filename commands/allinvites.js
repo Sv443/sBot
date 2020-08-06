@@ -15,11 +15,15 @@ module.exports.run = (client, message, args) => {
         for(let i = 0; i < settings.dev_ids.length; i++) if(message.author.id == settings.dev_ids[i]) allowToUse = true;
 
         if(allowToUse) {
-            var invites = ["succ"], ct = 0;
+            let invites = ["succ"], ct = 1;
             client.guilds.cache.array().forEach(g => {
                 g.fetchInvites().then(guildInvites => {
-                    invites[invites.length + 1] = (g + ": `Invites: " + guildInvites.array().join(", ") + "`");
                     ct++;
+
+                    if(guildInvites.array().length < 1)
+                        return;
+
+                    invites[invites.length + 1] = ("**" + g.name + "**: " + guildInvites.array().join(", "));
 
                     if(ct >= client.guilds.cache.size) {
                         for(let i = 0; i < invites.length; i++) {
@@ -29,12 +33,15 @@ module.exports.run = (client, message, args) => {
                         invites.shift();
 
                         for(let i = 0; i < invites.length; i++) invites[i] = "- " + invites[i];
-                        invites = invites.join("\n\n");
+                        invites = invites.join("\n");
+
+                        if(invites.length > 2048)
+                            invites = invites.substr(0, 2023) + "...\n\n(too many to show)";
 
                         let embed = new Discord.MessageEmbed()
-                        .setTitle("All Invites:")
-                        .setDescription(invites)
-                        .setColor(settings.embed.color);
+                            .setTitle("All Invites:")
+                            .setDescription(invites)
+                            .setColor(settings.embed.color);
 
                         message.channel.send(embed);
                     }
@@ -42,9 +49,6 @@ module.exports.run = (client, message, args) => {
                     ct++;
                 });
             });
-        }
-        else {
-            message.reply("this command can only be used by the developer.");
         }
     }
     catch(err) {

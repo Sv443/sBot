@@ -20,9 +20,18 @@ const categories = [
 
 
 module.exports.help = "Sends this help message";
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     var availableHelp = [], botsp = [], fun = [], knowldg = [];
     fs.readdirSync("./commands/").forEach(file => { // get all available commands
+        if(file.endsWith(".disabled"))
+            return;
+            
         if(require("../commands/" + file).isAdminCommand == (null || undefined) && require("../commands/" + file).isDevCommand == (null || undefined)) {
             let cargs = "";
             let fArgs = require("../commands/" + file).args;
@@ -42,10 +51,10 @@ module.exports.run = (client, message, args) => {
         .setAuthor(settings.bot_name + " v(" + settings.version + ") - All Commands (" + (botsp.length + fun.length + knowldg.length) + "):", settings.avatar_url)
         // .setDescription(availableHelp.join("") + "\n\nInvite " + settings.bot_name + " to your server or join the Support Server to get some help using this URL: " + settings.website_url + "\n\nTo view admin commands, use `" + settings.command_prefix + "adminhelp`")
         .setDescription("Arguments prefixed with `?` are optional.\n\n")
-        .addField(categories[1].displayName, fun.join(""), false)
-        .addField(categories[2].displayName, knowldg.join(""), false)
-        .addField(categories[0].displayName, botsp.join(""), false)
-        .addField(client.guilds.get(settings.serverSpecifics.supportServer.id).emojis.find(em => em.name == "sBot") + " Other:", "Invite " + settings.bot_name + " to your server, join the Support Server to get some help or test out experimental features [here.](" + settings.website_url + ")\n\nTo view admin commands, use `" + settings.command_prefix + "adminhelp`\n\nIf you like this bot, you can do me a huge favor by voting for the bot [here.](https://discordbots.org/bot/524324404583464960/vote) Thanks :smiley:")
+        .addField(categories[1].displayName, fun.join("") + "\n", false)
+        .addField(categories[2].displayName, knowldg.join("") + "\n", false)
+        .addField(categories[0].displayName, botsp.join("") + "\n", false)
+        .addField("🛠️ Other:", "Invite " + settings.bot_name + " to your server, join the Support Server to get some help or test out experimental features [here.](" + settings.website_url + ")\n\nTo view admin commands, use `" + settings.command_prefix + "adminhelp`\n\nIf you like this bot, you can do me a huge favor by voting for the bot [here.](https://discordbots.org/bot/524324404583464960/vote) Thanks :smiley:")
         .setFooter(settings.embed.footer)
         .setColor(settings.embed.color);
 
