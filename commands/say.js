@@ -4,6 +4,12 @@ const jsl = require("svjsl");
 module.exports.isAdminCommand = true;
 module.exports.help = "Sends a message as " + settings.bot_name + " (in a different channel if one is specified, else in the same one)";
 module.exports.args = ["?Channel", "Message"];
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     var sayInChannel, sendMsg;
 
@@ -28,9 +34,9 @@ module.exports.run = (client, message, args) => {
         }
         else {
             try {
-                message.guild.channels.cache.get(sayInChannel).send(sendMsg);
+                message.guild.channels.cache.find(ch => ch.id == sayInChannel).send(sendMsg);
                 message.react("✅");
-                message.delete(5000);
+                setTimeout(() => message.delete(), 2000);
             }
             catch(err) {
                 message.channel.send(args);

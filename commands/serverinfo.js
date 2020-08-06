@@ -3,6 +3,12 @@ const settings = require("../settings.js");
 
 module.exports.help = "Gives some info about the server";
 module.exports.category = "Discord";
+/**
+ * 
+ * @param {Discord.Client} client 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
 module.exports.run = (client, message, args) => {
     var g = message.guild;
     /*message.reply("Created at: " + g.createdAt);
@@ -12,15 +18,22 @@ module.exports.run = (client, message, args) => {
     message.reply("Owner: " + g.owner.displayName);*/
 
     let allMembers = g.memberCount;
-    let oMb = g.members.size;
-    let membersNoBots = g.members.filter(member => !member.user.bot).size;
+    let oMb = g.members.cache.size;
+    let membersNoBots = g.members.cache.filter(member => !member.user.bot).size;
     let botMembers = oMb - membersNoBots;
-    let onlineMembers = g.members.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd")).size - botMembers;
+    let onlineMembers = g.members.cache.filter(m => (m.presence.status == "online" || m.presence.status == "idle" || m.presence.status == "dnd")).size - botMembers;
 
-    var vL = parseInt(message.guild.verificationLevel);
-    var allLevels = ["None (1/5)", "Low (2/5)", "Medium (3/5)", "High (4/5)", "Highest (5/5)"]
     try {
-        var verificationLevel = allLevels[vL];
+        var vL = message.guild.verificationLevel;
+        let levels = {
+            "NONE": "None (1/5)",
+            "LOW": "Low (2/5)",
+            "MEDIUM": "Medium (3/5)",
+            "HIGH": "High (4/5)",
+            "VERY_HIGH": "Highest (5/5)"
+        }
+
+        var verificationLevel = levels[vL];
     }
     catch(err) {
         var verificationLevel = "(not available)";
@@ -30,15 +43,12 @@ module.exports.run = (client, message, args) => {
     .setTitle(g.name + ":")
     .addField("Owner:", g.owner.user.tag, true)
     .addField("Region:", g.region, true)
-    .addField("Roles:", g.roles.array().length, true)
+    .addField("Roles:", g.roles.cache.array().length, true)
     .addField("Verification Level:", verificationLevel, true)
-    .addBlankField()
     .addField("Online Members / Total Members / Bots:", "**" + onlineMembers + "** / **" + allMembers + "** / **" + botMembers + "**", false)
-    .addBlankField()
     .addField("Created:", g.createdAt.toUTCString(), false)
-    .setThumbnail(g.iconURL)
+    .setThumbnail(g.iconURL({format: "png"}))
     .setColor(settings.embed.color)
-    .addBlankField()
     .setFooter(settings.embed.footer)
 
     message.channel.send(embed);
