@@ -15,7 +15,7 @@
     "node-wrap": "^0.2.0",
     "pageviews": "^1.4.3",
     "register-scheme": "github:devsnek/node-register-scheme",
-    "request": "^2.88.0",
+    "request": "^2.88.2",
     "request-promise-native": "^1.0.9",
     "svjsl": "^1.9.3",
     "xmlhttprequest": "^1.8.0"
