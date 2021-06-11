@@ -4,7 +4,7 @@
 <br><br>
 
 ## This project is abandoned and the bot is offline for good
-I don't have the fucking nerve to coninue working with the Discord API having to rewrite everything twice a year.  
+I don't have the nerve to coninue working with the Discord API, having to rewrite everything twice a year.  
 Maybe I'll continue some day but probably not, we'll see.
 
 <br><br><br>
