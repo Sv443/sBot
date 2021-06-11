@@ -1,6 +1,12 @@
 # sBot by [Sv443](https://sv443.net/)<br>[![](https://img.shields.io/github/license/Sv443/sBot.svg?style=flat-square)](https://github.com/Sv443/sBot/blob/master/LICENSE) [![](https://img.shields.io/github/issues/Sv443/sBot.svg?style=flat-square)](https://github.com/Sv443/sBot/issues) [![](https://img.shields.io/github/stars/Sv443/sBot.svg?style=flat-square)](https://github.com/Sv443/sBot/)
 ### A fun and useful Discord Bot that was designed as a bot that has many different features from as many categories as possible to give every user something they can enjoy.
 
+<br><br>
+
+## This project is abandoned and the bot is offline for good
+I don't have the fucking nerve to coninue working with the Discord API having to rewrite everything twice a year.  
+Maybe I'll continue some day but probably not, we'll see.
+
 <br><br><br>
 
 ---
