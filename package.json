@@ -17,7 +17,7 @@
     "register-scheme": "github:devsnek/node-register-scheme",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.9",
-    "svjsl": "^1.9.3",
+    "svjsl": "^1.9.4",
     "xmlhttprequest": "^1.8.0"
   }
 }
